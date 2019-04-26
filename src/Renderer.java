@@ -8,7 +8,7 @@ public class Renderer {
     /**
      * Field of View in Radians
      */
-    private static final float FOV = (float) Math.toRadians(60.0f);
+    private static float FOV = (float) Math.toRadians(60.0f);
 
     private static final float Z_NEAR = 0.01f;
 
@@ -73,5 +73,9 @@ public class Renderer {
         if (shaderProgram != null) {
             shaderProgram.cleanup();
         }
+    }
+
+    public static void setFOV(float FOV) {
+        Renderer.FOV = (float)Math.toRadians(FOV);
     }
 }

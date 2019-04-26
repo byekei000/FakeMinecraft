@@ -4,7 +4,7 @@ public class Main {
         try {
             boolean vSync = true;
             IGameLogic gameLogic = new Game();
-            GameEngine gameEng = new GameEngine("GAME", 1200, 960, vSync, gameLogic);
+            GameEngine gameEng = new GameEngine("GAME", 1200, 800, vSync, gameLogic);
             gameEng.start();
         } catch (Exception excp) {
             excp.printStackTrace();

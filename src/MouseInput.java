@@ -2,20 +2,18 @@
 
 import org.joml.Vector2d;
 import org.joml.Vector2f;
+
+import java.awt.*;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseInput {
 
     private final Vector2d previousPos;
-
     private final Vector2d currentPos;
-
     private final Vector2f displVec;
-
     private boolean inWindow = false;
-
     private boolean leftButtonPressed = false;
-
     private boolean rightButtonPressed = false;
 
     public MouseInput() {

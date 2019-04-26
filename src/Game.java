@@ -141,8 +141,10 @@ public class Game implements IGameLogic {
         cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
             if(window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
+                renderer.setFOV(90.0f);
                 cameraInc.z = -2;
             } else{
+                renderer.setFOV(60.0f);
                 cameraInc.z = -1;
             }
         } else if (window.isKeyPressed(GLFW_KEY_S)) {
@@ -168,8 +170,8 @@ public class Game implements IGameLogic {
         // Update camera based on mouse
         Vector2f rotVec = mouseInput.getDisplVec();
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
-        robot.mouseMove(1000,500);
-        if(camera.getPosition().y >= -0f){
+//        robot.mouseMove(700,500);
+        if(camera.getPosition().y >= 0f){
             camera.movePosition(0,-0.02f,0);
         }
     }
