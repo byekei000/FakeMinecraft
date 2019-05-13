@@ -15,6 +15,7 @@ public class MouseInput {
     private boolean inWindow = false;
     private boolean leftButtonPressed = false;
     private boolean rightButtonPressed = false;
+    private Robot robot;
 
     public MouseInput() {
         previousPos = new Vector2d(-1, -1);
@@ -23,6 +24,12 @@ public class MouseInput {
     }
 
     public void init(Window window) {
+        try{
+            robot = new Robot();
+        }catch(AWTException e){
+
+        }
+        robot.mouseMove(500,500);
         glfwSetInputMode(window.getWindowHandle(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         glfwSetCursorPosCallback(window.getWindowHandle(), (windowHandle, xpos, ypos) -> {
             currentPos.x = xpos;
@@ -42,6 +49,7 @@ public class MouseInput {
     }
 
     public void input(Window window) {
+        robot.mouseMove(700,500);
         displVec.x = 0;
         displVec.y = 0;
         if (previousPos.x > 0 && previousPos.y > 0 && inWindow) {
@@ -56,8 +64,8 @@ public class MouseInput {
                 displVec.x = (float) deltay;
             }
         }
-        previousPos.x = currentPos.x;
-        previousPos.y = currentPos.y;
+        previousPos.x = 500;
+        previousPos.y = 450;
     }
 
     public boolean isLeftButtonPressed() {

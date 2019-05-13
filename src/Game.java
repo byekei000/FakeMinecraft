@@ -141,11 +141,11 @@ public class Game implements IGameLogic {
         cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
             if(window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
-                renderer.setFOV(90.0f);
-                cameraInc.z = -2;
+                renderer.setFOV(70.0f);
+                cameraInc.z = -3;
             } else{
                 renderer.setFOV(60.0f);
-                cameraInc.z = -1;
+                cameraInc.z = -2;
             }
         } else if (window.isKeyPressed(GLFW_KEY_S)) {
             cameraInc.z = 1;
