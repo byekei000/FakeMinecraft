@@ -25,6 +25,16 @@ public class Camera {
         position.y = y;
         position.z = z;
     }
+
+    public void setXPosition(float x){
+        position.x = x;
+    }
+    public void setYPosition(float y){
+        position.y = y;
+    }
+    public void setZPosition(float z){
+        position.z = z;
+    }
     
     public void movePosition(float offsetX, float offsetY, float offsetZ) {
         if ( offsetZ != 0 ) {

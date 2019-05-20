@@ -14,6 +14,8 @@ public class Game implements IGameLogic {
     private Robot robot;
     private GameItem[] gameItems;
     private static final float CAMERA_POS_STEP = 0.05f;
+    private float dy = 0;
+    private final float g = -0.02f;
 
     public Game() {
         renderer = new Renderer();
@@ -141,7 +143,7 @@ public class Game implements IGameLogic {
         cameraInc.set(0, 0, 0);
         if (window.isKeyPressed(GLFW_KEY_W)) {
             if(window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
-                renderer.setFOV(70.0f);
+                renderer.setFOV(60.0f);
                 cameraInc.z = -3;
             } else{
                 renderer.setFOV(60.0f);
@@ -158,7 +160,10 @@ public class Game implements IGameLogic {
         if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
             cameraInc.y = -1;
         } else if (window.isKeyPressed(GLFW_KEY_SPACE)) {
-            cameraInc.y = 1;
+            if(camera.getPosition().y == 0f){
+                cameraInc.y = 1;
+                dy += 0.2f;
+            }
         }
     }
 
@@ -171,9 +176,16 @@ public class Game implements IGameLogic {
         Vector2f rotVec = mouseInput.getDisplVec();
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
 //        robot.mouseMove(700,500);
-        if(camera.getPosition().y >= 0f){
-            camera.movePosition(0,-0.02f,0);
+        if(camera.getPosition().y > 0f){
+            dy += g;
+            camera.movePosition(0,dy,0);
+        } else {
+            if(camera.getPosition().y < 0f){
+                camera.setYPosition(0f);
+            }
+            dy = 0;
         }
+        System.out.println(camera.getPosition().x);
     }
 
     @Override
@@ -189,4 +201,11 @@ public class Game implements IGameLogic {
         }
     }
 
+//    public int getItemWithPos(float x, float z){
+//        for(int i = 0; i < gameItems.length; i++){
+//            if(gameItems[i].getPosition().x - x <= 1.0 && gameItems[i].getPosition().x - x <= 1.0){
+//
+//            }
+//        }
+//    }
 }
