@@ -205,9 +205,7 @@ public class Game implements IGameLogic {
 
     public GameItem getItemWithPos(float x, float z){
         for(int i = 0; i < gameItems.length; i++){
-            if(Math.abs(gameItems[i].getPosition().x - x) <= 0.5
-//                    && Math.abs(gameItems[i].getPosition().z - z) <= 0.5
-            ){
+            if(Math.abs(gameItems[i].getPosition().x - x-0.25) <= 0.5 && Math.abs(gameItems[i].getPosition().z - z-0.25) <= 0.5){
                 System.out.println(i);
                 return gameItems[i];
             }
