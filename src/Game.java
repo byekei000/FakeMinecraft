@@ -113,12 +113,14 @@ public class Game implements IGameLogic {
         };
         Texture texture = new Texture("/res/grassblock.png");
         Mesh mesh = new Mesh(positions, textCoords, indices, texture);
-        gameItems = new GameItem[10000];
-        for(int i = 0; i < 100; i++){
-            for(int j = 0; j < 100; j++){
-                gameItems[i*100+j] = new GameItem(mesh);
-                gameItems[i*100+j].setScale(0.5f);
-                gameItems[i*100+j].setPosition(((float)i/2)-25.0f,(int)(Math.random()*2),((float)j/2)-25.0f);
+        gameItems = new GameItem[50000];
+        for(int i = 0; i < 50; i++){
+            for(int j = 0; j < 50; j++){
+                for(int k = 0; k < 5; k++){
+                    gameItems[i*50+j*5+k] = new GameItem(mesh);
+                    gameItems[i*50+j*5+k].setScale(0.5f);
+                    gameItems[i*50+j*5+k].setPosition(((float)i/2)-25.0f,(float)(((int)((Math.random()*3)))*0.5),((float)j/2)-25.0f);
+                }
             }
         }
         camera.setPosition(-25f, 5f, -25f);
