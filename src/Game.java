@@ -113,13 +113,13 @@ public class Game implements IGameLogic {
         };
         Texture texture = new Texture("/res/grassblock.png");
         Mesh mesh = new Mesh(positions, textCoords, indices, texture);
-        gameItems = new GameItem[50000];
+        gameItems = new GameItem[7500];
         for(int i = 0; i < 50; i++){
             for(int j = 0; j < 50; j++){
-                for(int k = 0; k < 5; k++){
-                    gameItems[i*50+j*5+k] = new GameItem(mesh);
-                    gameItems[i*50+j*5+k].setScale(0.5f);
-                    gameItems[i*50+j*5+k].setPosition(((float)i/2)-25.0f,(float)(((int)((Math.random()*3)))*0.5),((float)j/2)-25.0f);
+                for(int k = 0; k < 3; k++){
+                    gameItems[i*150+j*3+k] = new GameItem(mesh);
+                    gameItems[i*150+j*3+k].setScale(0.5f);
+                    gameItems[i*150+j*3+k].setPosition(((float)i/2)-25.0f,(float)(((int)((Math.random()*3)))*0.5),((float)j/2)-25.0f);
                 }
             }
         }
@@ -164,7 +164,7 @@ public class Game implements IGameLogic {
         if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
             cameraInc.y = -1;
         } else if (window.isKeyPressed(GLFW_KEY_SPACE)) {
-            if(camera.getPosition().y == getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().y+1){
+            if(camera.getPosition().y == getItemWithPos((int)camera.getPosition().x, (int)camera.getPosition().z).getPosition().y+1){
                 cameraInc.y = 1;
                 dy += 0.21f;
             }
@@ -180,16 +180,16 @@ public class Game implements IGameLogic {
         Vector2f rotVec = mouseInput.getDisplVec();
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
 
-        if(camera.getPosition().y > getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().y+1){
+        if(camera.getPosition().y > getItemWithPos((int)camera.getPosition().x, (int)camera.getPosition().z).getPosition().y+1){
             dy += g;
             camera.movePosition(0,dy,0);
         } else {
-            if(camera.getPosition().y < getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().y+1){
-                camera.setYPosition(getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().y+1);
+            if(camera.getPosition().y < getItemWithPos((int)camera.getPosition().x, (int)camera.getPosition().z).getPosition().y+1){
+                camera.setYPosition(getItemWithPos((int)camera.getPosition().x, (int)camera.getPosition().z).getPosition().y+1);
             }
             dy = 0;
         }
-        System.out.println(camera.getPosition().x + " " + getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().x);
+        System.out.println(camera.getPosition().x + " " + getItemWithPos((int)camera.getPosition().x, (int)camera.getPosition().z).getPosition().x);
     }
 
     @Override
@@ -205,13 +205,8 @@ public class Game implements IGameLogic {
         }
     }
 
-    public GameItem getItemWithPos(float x, float z){
-        for(int i = 0; i < gameItems.length; i++){
-            if(Math.abs(gameItems[i].getPosition().x - x-0.25) <= 0.5 && Math.abs(gameItems[i].getPosition().z - z-0.25) <= 0.5){
-                System.out.println(i);
-                return gameItems[i];
-            }
-        }
-        return null;
+    public GameItem getItemWithPos(int x, int z){
+        GameItem gameItem = gameItems[x*150+z*3+3];
+        return gameItem;
     }
 }
