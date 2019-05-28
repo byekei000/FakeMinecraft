@@ -16,6 +16,8 @@ public class Game implements IGameLogic {
     private static final float CAMERA_POS_STEP = 0.05f;
     private float dy = 0;
     private final float g = -0.02f;
+    private boolean leftButtonPressed;
+    private CameraBoxSelectionDetector selectDetector;
 
     public Game() {
         renderer = new Renderer();
