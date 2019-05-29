@@ -2,6 +2,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -12,7 +13,7 @@ public class Game implements IGameLogic {
     private final Renderer renderer;
     private final Camera camera;
     private Robot robot;
-    private GameItem[] gameItems;
+    private ArrayList<GameItem> gameItems;
     private static final float CAMERA_POS_STEP = 0.05f;
     private float dy = 0;
     private final float g = -0.02f;
@@ -115,17 +116,18 @@ public class Game implements IGameLogic {
         };
         Texture texture = new Texture("/res/grassblock.png");
         Mesh mesh = new Mesh(positions, textCoords, indices, texture);
-        gameItems = new GameItem[7500];
+        gameItems = new ArrayList<GameItem>();
         for(int i = 0; i < 50; i++){
             for(int j = 0; j < 50; j++){
                 for(int k = 0; k < 3; k++){
                     int ran = (int)(Math.random()*3);
-                    gameItems[i*150+j*3+k] = new GameItem(mesh);
-                    gameItems[i*150+j*3+k].setScale(1f);
-                    gameItems[i*150+j*3+k].setPosition(((float)i)-25f,(float)(k+ran),((float)j)-25f);
+                    gameItems.add(new GameItem(mesh));
+                    gameItems.get(i*150+j*3+k).setScale(1f);
+                    gameItems.get(i*150+j*3+k).setPosition(((float)i)-25f,(float)(k+ran),((float)j)-25f);
                 }
             }
         }
+        selectDetector = new CameraBoxSelectionDetector();
         camera.setPosition(-25.5f, 10f, -25.5f);
         camera.setRotation(0f,90f,0f);
 //        GameItem gameItem1 = new GameItem(mesh);
@@ -209,8 +211,8 @@ public class Game implements IGameLogic {
     }
 
     public GameItem getItemWithPos(float x, float z){
-        GameItem gameItem = gameItems[((int)((Math.round(x+0.5)+25)*150)+(int)((Math.round(z+0.5)+25)*3)+2)];
-        System.out.println(((int)((Math.round(x+0.5)+25)*150)+(int)((Math.round(z+0.5)+25)*3)+2));
+        GameItem gameItem = gameItems.get(((int)((Math.round(x+0.5)+25)*150)+(int)((Math.round(z+0.5)+25)*3)+2));
+        System.out.println(((int)((Math.round(x)+25)*150)+(int)((Math.round(z)+25)*3)+2));
         return gameItem;
     }
 }

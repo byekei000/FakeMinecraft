@@ -1,6 +1,9 @@
 
 
 import org.joml.Matrix4f;
+
+import java.util.ArrayList;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class Renderer {
@@ -39,7 +42,7 @@ public class Renderer {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
-    public void render(Window window, Camera camera, GameItem[] gameItems) {
+    public void render(Window window, Camera camera, ArrayList<GameItem> gameItems) {
         clear();
         
         if ( window.isResized() ) {
