@@ -19,6 +19,7 @@ public class Game implements IGameLogic {
     private final float g = -0.02f;
     private boolean leftButtonPressed;
     private CameraBoxSelectionDetector selectDetector;
+    private int h = 0;
 
     public Game() {
         renderer = new Renderer();
@@ -119,16 +120,13 @@ public class Game implements IGameLogic {
         gameItems = new ArrayList<GameItem>();
         for(int i = 0; i < 50; i++){
             for(int j = 0; j < 50; j++){
-                for(int k = 0; k < 3; k++){
-                    int ran = (int)(Math.random()*3);
                     gameItems.add(new GameItem(mesh));
-                    gameItems.get(i*150+j*3+k).setScale(1f);
-                    gameItems.get(i*150+j*3+k).setPosition(((float)i)-25f,(float)(k+ran),((float)j)-25f);
-                }
+                    gameItems.get(i*50+j).setScale(1f);
+                    gameItems.get(i*50+j).setPosition(((float)i),(int)(Math.random()*2),((float)j));
             }
         }
         selectDetector = new CameraBoxSelectionDetector();
-        camera.setPosition(-25.5f, 10f, -25.5f);
+        camera.setPosition(-0.5f, 10f, -0.5f);
         camera.setRotation(0f,90f,0f);
 //        GameItem gameItem1 = new GameItem(mesh);
 //        gameItem1.setScale(0.5f);
@@ -194,7 +192,21 @@ public class Game implements IGameLogic {
             }
             dy = 0;
         }
-        System.out.println(camera.getPosition().z + " " + getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().z);
+//        boolean aux = mouseInput.isLeftButtonPressed();
+//        if (aux && !this.leftButtonPressed && this.selectDetector.selectGameItem(gameItems, camera)) {
+//            h++;
+//            System.out.println("hey" + h);
+//        }
+//        this.leftButtonPressed = aux;
+//        System.out.println(camera.getPosition().z + " " + getItemWithPos(camera.getPosition().x, camera.getPosition().z).getPosition().z);
+        selectDetector.selectGameItem(gameItems, camera);
+        int index = 0;
+        for(GameItem gameItem : gameItems){
+            if(gameItem.isSelected()){
+                System.out.println("yuh" + index);
+            }
+            index++;
+        }
     }
 
     @Override
@@ -211,8 +223,8 @@ public class Game implements IGameLogic {
     }
 
     public GameItem getItemWithPos(float x, float z){
-        GameItem gameItem = gameItems.get(((int)((Math.round(x+0.5)+25)*150)+(int)((Math.round(z+0.5)+25)*3)+2));
-        System.out.println(((int)((Math.round(x)+25)*150)+(int)((Math.round(z)+25)*3)+2));
+        GameItem gameItem = gameItems.get(((int)((Math.round(x))*50)+(int)((Math.round(z)))));
+//        System.out.println(((int)((Math.round(x)+25)*50)+(int)((Math25.round(z)+25))));
         return gameItem;
     }
 }

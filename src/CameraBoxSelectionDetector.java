@@ -21,30 +21,25 @@ public class CameraBoxSelectionDetector {
         nearFar = new Vector2f();
     }
 
-    public boolean selectGameItem(ArrayList<GameItem> gameItems, Camera camera) {
-        dir = camera.getViewMatrix().positiveZ(dir).negate();
-        return selectGameItem(gameItems, camera.getPosition(), dir);
-    }
-    
-    protected boolean selectGameItem(ArrayList<GameItem> gameItems, Vector3f center, Vector3f dir) {
-        boolean selected = false;
+    public void selectGameItem(ArrayList<GameItem> gameItems, Camera camera) {
         GameItem selectedGameItem = null;
         float closestDistance = Float.POSITIVE_INFINITY;
 
+        dir = camera.getViewMatrix().positiveZ(dir).negate();
         for (GameItem gameItem : gameItems) {
+            gameItem.setSelected(false);
             min.set(gameItem.getPosition());
             max.set(gameItem.getPosition());
             min.add(-gameItem.getScale(), -gameItem.getScale(), -gameItem.getScale());
             max.add(gameItem.getScale(), gameItem.getScale(), gameItem.getScale());
-            if (Intersectionf.intersectRayAab(center, dir, min, max, nearFar) && nearFar.x < closestDistance) {
+            if (Intersectionf.intersectRayAab(camera.getPosition(), dir, min, max, nearFar) && nearFar.x < closestDistance) {
                 closestDistance = nearFar.x;
                 selectedGameItem = gameItem;
             }
         }
 
         if (selectedGameItem != null) {
-            selected = true;
+            selectedGameItem.setSelected(true);
         }
-        return selected;
     }
 }
