@@ -1,5 +1,3 @@
-
-
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 
@@ -29,7 +27,7 @@ public class MouseInput {
         }catch(AWTException e){
 
         }
-        robot.mouseMove(500,500);
+//        robot.mouseMove(500,500);
         glfwSetInputMode(window.getWindowHandle(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
         glfwSetCursorPosCallback(window.getWindowHandle(), (windowHandle, xpos, ypos) -> {
             currentPos.x = xpos;
@@ -49,7 +47,7 @@ public class MouseInput {
     }
 
     public void input(Window window) {
-        robot.mouseMove(700,500);
+        robot.mouseMove(583,434);
         displVec.x = 0;
         displVec.y = 0;
         if (previousPos.x > 0 && previousPos.y > 0 && inWindow) {
